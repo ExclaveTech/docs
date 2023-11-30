@@ -18,6 +18,7 @@ The core design of zk-Corprocessor will encompass four key aspects:
 This section aims to implement JSON RPC endpoints (HTTP interface) to allow users (such as Metamask, dApps, AA Wallets, Etherscan, etc.) to interact with the off-chain coprocessor nodes.
 The interaction mode of zk-Coprocessor RPC should be fully compatible with Ethereum RPC, while also supporting specific additional endpoints within the coprocessor network, such as batches, proofs, L1 verification transactions, and more. Users can interact with the network's state (retrieve data and process transactions) and engage with the transaction pool through these endpoints.
 **Process Design**:
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic2.png" alt="pic2" width="650" height="auto">
 
 **Reference Materials**:
 The development of endpoints should adhere to the OpenRPC Specs and may also refer to the relevant implementation of Polygon zkEVM Endpoints.
