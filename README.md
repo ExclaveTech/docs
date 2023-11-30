@@ -3,7 +3,7 @@
 ## Overview
 The zk-Corprocessor is a novel off-chain scaling solution based on zkEVM and the OP stack. Leveraging zk-Corprocessor, developers can design data-driven decentralized applications (dApps) that enable low-cost execution of complex computations, all while maintaining the security at the entire chain level, without the need for any additional trust assumptions.
 
-<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic1.png" alt="High-level Structure" width="650" height="auto">
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic1.png" alt="High-level Structure" width="1000" height="auto">
 
 The core design of zk-Corprocessor will encompass four key aspects:
 - Communication between users and off-chain environment, on-chain and off-chain environment.
