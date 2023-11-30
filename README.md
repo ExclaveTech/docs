@@ -104,7 +104,7 @@ Tx -> block -> batch -> proof
 
 **Overall Generation Relationship**:
 
-<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic6.png" alt="pic6" width="1200" height="auto">
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic6.png" alt="pic6" width="1000" height="auto">
 
 **Relationship between multiple batches**: 
 Batches are constructed based on the order of blocks, and the verification of corresponding proofs is also conducted through iterative verification of the global state.
@@ -117,7 +117,7 @@ Tx -> block -> batch -> proof
 
 **Overall Generation Relationship**:
 
-<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic7.png" alt="pic7" width="1200" height="auto">
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic7.png" alt="pic7" width="1000" height="auto">
 
 **Relationships Between Multiple Batches**: 
 As each batch is verified based on individual game sessions, they have detached from the sequential order between blocks. Therefore, there is no need for checking the global state among multiple batches, as they are no longer associated.
@@ -136,7 +136,7 @@ The overall mechanism follows a similar process to OP, where, without triggering
 
 **Process Design**:
 
-<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic8.png" alt="pic8" width="1500" height="auto">
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic8.png" alt="pic8" width="1300" height="auto">
 
 1. Game concludes, and the Prover receives the end signal (listening to events/identifying transactions).
 2. The Prover uploads the final state/all transactions to L1.
