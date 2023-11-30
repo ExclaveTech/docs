@@ -19,6 +19,7 @@ This section aims to implement JSON RPC endpoints (HTTP interface) to allow user
 The interaction mode of zk-Coprocessor RPC should be fully compatible with Ethereum RPC, while also supporting specific additional endpoints within the coprocessor network, such as batches, proofs, L1 verification transactions, and more. Users can interact with the network's state (retrieve data and process transactions) and engage with the transaction pool through these endpoints.
 
 **Process Design**:
+
 <img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic2.png" alt="pic2" width="650" height="auto">
 
 **Reference Materials**:
@@ -54,18 +55,26 @@ The communication between on-chain and off-chain zk-Coprocessor involves the imp
 - `zkVerifier`: A smart contract deployed on the chain to verify zkps and return verification results.
 
 #### Relayer
+
 **Design Objectives**:
 Monitor on-chain relevant states and events, synchronize on-chain and game-related data to zk-Coprocessor to provide data for game session initialization and other operations. Additionally, the Relayer will be responsible for fetching data from Layer 1 (L1) for the verification contract zkVerifier, updating the StateDB to ensure the availability of the off-chain environment's state.
+
 **Process Design**:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic3.png" alt="pic3" width="650" height="auto">
 
 **Reference Materials**:
 Regarding the functionality of synchronization and monitoring, you may refer to the implementation of the Polygon zkEVM synchronizer.
 
 #### EthTxManager & zkCoordinator
+
 **Design Objectives**:
 In addition to handling all system requests requiring transaction submission to the on-chain, this module should also manage information related to L1 gas price, account nonce, and other relevant details to ensure the overall cost-effectiveness and smooth operation of the system.
 In this design, one of the core functions of EthTxManager is to receive zkp verification requests from zkCoordinator and send them to the on-chain contract zkVerifier.
+
 **Process Design**:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic4.png" alt="pi43" width="650" height="auto">
 
 **Reference Materials**:
 The implementation details of `zkCoordinator` will be explained in the scheduling of zkp tasks. The implementation of `EthTxManager` will refer to the implementation of Polygon zkEVM ethtxmanager and the abstracted method implementation in etherman.
