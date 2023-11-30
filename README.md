@@ -74,7 +74,7 @@ In this design, one of the core functions of EthTxManager is to receive zkp veri
 
 **Process Design**:
 
-<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic4.png" alt="pi43" width="650" height="auto">
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic4.png" alt="pic4" width="650" height="auto">
 
 **Reference Materials**:
 The implementation details of `zkCoordinator` will be explained in the scheduling of zkp tasks. The implementation of `EthTxManager` will refer to the implementation of Polygon zkEVM ethtxmanager and the abstracted method implementation in etherman.
@@ -85,6 +85,9 @@ The implementation of the verification contract will be based on the off-chain z
 
 ### Example
 Here, we will use the MUD-based game Sky Strife as an example to further explain the communication process:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic5.png" alt="pic5" width="1200" height="auto">
+
 - Players initialize the game on-chain (which may involve staking a certain amount of assets).
 - During the initialization process, zk-Coprocessor will call the on-chain `zkRelayer` contract, triggering an event to provide information for the `Relayer` to monitor and execute off-chain operations, such as setting up game accounts and initializing off-chain game session contracts.
 - The conclusion of the game will be triggered by an event from the off-chain game session contract, generating the corresponding proof, and the dispute resolution mechanism will determine whether to submit it to the chain.
@@ -95,32 +98,46 @@ Here, we will use the MUD-based game Sky Strife as an example to further explain
 
 ### Background
 The production of proofs in zkEVM depends on the sequential generation of blocks and global variables within the entire EVM environment.
+
 **Production Chain**:  
 Tx -> block -> batch -> proof
+
 **Overall Generation Relationship**:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic6.png" alt="pic6" width="1200" height="auto">
 
 **Relationship between multiple batches**: 
 Batches are constructed based on the order of blocks, and the verification of corresponding proofs is also conducted through iterative verification of the global state.
 
 ### Purpose
 The goal of zk-Corprocessor is to operate on a per-game session basis, starting from the initiation of an individual game session and concluding with the end of that session. After the game concludes, the corresponding batch will generate a proof, which is then submitted for verification to a higher-level chain.
+
 **Production Chain**:  
 Tx -> block -> batch -> proof
+
 **Overall Generation Relationship**:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic7.png" alt="pic7" width="1200" height="auto">
 
 **Relationships Between Multiple Batches**: 
 As each batch is verified based on individual game sessions, they have detached from the sequential order between blocks. Therefore, there is no need for checking the global state among multiple batches, as they are no longer associated.
-Existing Issues:
+
+**Existing Issues**:
 The existing proof circuitry and verification methods strictly depend on the order of block production and global state checks. Submission and verification are performed based on the strict order of production. However, our proof production is on a per-game session basis, detached from the order of block production. The state within an individual batch has also detached from the original sequential global state. Overall, proofs are produced in a parallel form, and the states of multiple batches have decoupled. Therefore, the original zkevm circuitry and verification methods are no longer applicable, requiring the development of new circuitry for proof production.
 
 ### Initiation and Conclusion of Game Sessions
 *TODO*
 
 ## OP + ZK Dispute Resolution Mechanism
+
 **Design Objectives**:
 The goal is to ensure effectiveness and security while saving costs through the OP + ZK format.
 The overall mechanism follows a similar process to OP, where, without triggering a challenge, the mechanism operates similarly. The key difference lies in the fact that our network only generates zk-proof to L1 when a challenge is triggered.
+
 **Process Design**:
+
+<img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic8.png" alt="pic8" width="1500" height="auto">
+
 1. Game concludes, and the Prover receives the end signal (listening to events/identifying transactions).
 2. The Prover uploads the final state/all transactions to L1.
 3. A potential Challenger receives evidence/data to decide whether to challenge.
