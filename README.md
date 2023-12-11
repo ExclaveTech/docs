@@ -96,6 +96,8 @@ Here, we will use the MUD-based game Sky Strife as an example to further explain
 
 ## zk-Proof Generation Coordination
 
+By using zk-proofs, we can achieve a balance between privacy protection and ensuring fairness in gaming. Players can verify their own actions and those of other players to ensure compliance with game rules without revealing detailed information about the game state. However, since the states of individual games are not interdependent, each game maintains its own state roots. In order to achieve low-cost zk-proof generation for game verification, a multi-layer compression of their respective state roots has been implemented. This solution ensures the security of the entire chain while achieving verification, continuity, and independence of game sessions. (Individual game states are self-maintained, and the global game state is maintained by L1/L2, eliminating the need to maintain global states across game sessions at this layer. Zk-proofs are used to validate the legitimacy of game operations while protecting player privacy.)
+
 ### Background
 The production of proofs in zkEVM depends on the sequential generation of blocks and global variables within the entire EVM environment.
 
@@ -120,10 +122,10 @@ Tx -> block -> batch -> proof
 <img src="https://github.com/zk-coprocessor/docs/blob/main/img/pic7.png" alt="pic7" width="1000" height="auto">
 
 **Relationships Between Multiple Batches**: 
-As each batch is verified based on individual game sessions, they have detached from the sequential order between blocks. Therefore, there is no need for checking the global state among multiple batches, as they are no longer associated.
+Between batches, due to the individual validation of each game session, they have detached from any sequential relationship. Each batch has its own new state root to determine the continuity and relevance of transactions, and multiple batches are no longer correlated. In reality, multiple game sessions are products of different EVM environments, so each game session has its own related EVM environment and corresponding state root. The states being verified are effectively parallel states.
 
 **Existing Issues**:
-The existing proof circuitry and verification methods strictly depend on the order of block production and global state checks. Submission and verification are performed based on the strict order of production. However, our proof production is on a per-game session basis, detached from the order of block production. The state within an individual batch has also detached from the original sequential global state. Overall, proofs are produced in a parallel form, and the states of multiple batches have decoupled. Therefore, the original zkevm circuitry and verification methods are no longer applicable, requiring the development of new circuitry for proof production.
+Even though the state roots of multiple game sessions are independent, the handling of account states remains a cross-state problem.
 
 ### Initiation and Conclusion of Game Sessions
 *TODO*
